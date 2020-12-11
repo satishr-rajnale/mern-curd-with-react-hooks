@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { getTodos } from "./api";
+import { getTodos,deleteTodo } from "./api";
 
 export const TodoList = () => {
   const [items, setItems] = useState([]);
@@ -13,6 +13,11 @@ export const TodoList = () => {
     fetchItems();
   }, []);
 
+  const deleteByid = async(id)=>{
+    console.log('id',id);
+    await deleteTodo(id);
+  }
+
   return (
     <div className="coontainer">
       <div className="mt-3">
@@ -21,7 +26,8 @@ export const TodoList = () => {
           <thead>
             <tr>
               <th>Text</th>
-              <th>Action</th>
+              <th>ActionEdit</th>
+              <th>ActionDelete</th>
             </tr>
           </thead>
           <tbody>
@@ -30,6 +36,9 @@ export const TodoList = () => {
                 <td>{todo.text}</td>
                 <td>
                   <Link to={`/edit/${todo._id}`}>Edit</Link>
+                </td>
+                <td>
+                  <Link  onClick={()=> deleteByid(todo._id)}>Delete</Link>
                 </td>
               </tr>
             ))}

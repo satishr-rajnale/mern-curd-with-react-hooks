@@ -80,6 +80,14 @@ app.post("/:id", (req, res) => {
   });
 });
 
+app.delete("delete/:id", (req, res) => {
+  const id = req.params.id;
+  console.log('delid',id);
+  Todo.remove({_id:ObjectID(id)}).then(()=>{
+    res.status(200);
+  });
+});
+
 app.listen(PORT, () => {
   console.log("Server Started at port : ", PORT);
 });
